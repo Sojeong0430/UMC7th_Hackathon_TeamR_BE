@@ -19,6 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Post extends BaseEntity {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id; // id
@@ -42,4 +43,5 @@ public class Post extends BaseEntity {
     //mappedBy는 매핑되는 onetomany 필드 부분에서 지정된 변수명
     @OneToMany (mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
+
 }
