@@ -18,12 +18,14 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post AddPost(String title, String body, String imageUrl, Member member) {
-        Member postAddmember = member;
-        return Post.builder()
+        Post newPost = Post.builder()
                 .title(title)
                 .body(body)
-                .member(postAddmember)
+                .member(member)
                 .image_url(imageUrl).build();
+        System.out.println(newPost.getTitle()+newPost.getBody()+newPost.getImage_url());
+        postRepository.save(newPost);
+        return newPost;
     } //게시글 등록
 
     @Override

@@ -35,6 +35,10 @@ public class PrincipalDetails implements UserDetails {
         return member.getNickname();
     }
 
+    public Long getId() {
+        return member.getId();
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -53,5 +57,9 @@ public class PrincipalDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public Long getId() {
+        return member.getId();
     }
 }
