@@ -7,7 +7,9 @@ import com.example.Midnight.Snacker.repository.MemberRepository;
 import com.example.Midnight.Snacker.repository.PostRepository;
 import com.example.Midnight.Snacker.apiPayload.code.status.ErrorStatus;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
+@Service
 @AllArgsConstructor
 public class PostServiceImpl implements PostService {
 

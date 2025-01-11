@@ -29,8 +29,6 @@ public class PostController {
         String body = request.getBody();
         String imageUrl = request.getImageUrl();
 
-        Member postMember = member;
-
         Post post = postService.AddPost(title, body, imageUrl,member);
         return ApiResponse.onSuccess(PostConverter.addPostToResultDTO(post));
     }
