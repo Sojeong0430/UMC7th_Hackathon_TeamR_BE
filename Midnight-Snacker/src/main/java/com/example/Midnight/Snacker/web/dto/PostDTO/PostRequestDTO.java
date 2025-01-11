@@ -14,6 +14,5 @@ public class PostRequestDTO {
     public static class addPostRequestDTO {
         private String title;
         private String body;
-        private String imageUrl;
     }
 }
