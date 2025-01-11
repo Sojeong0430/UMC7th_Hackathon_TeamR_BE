@@ -48,16 +48,29 @@ public class CalendarController {
         return ApiResponse.of(SuccessStatus.ADD_CALENDAR_OK, calendarId);
     }
 
-    @GetMapping
+    @GetMapping("/api/calender/monthly")
     @Operation(
-            summary = "모든 기록 조회 API")
-    public ApiResponse<CalendarResponseDTO> showCalendar(
+            summary = "월별 기록 조회 API")
+    public ApiResponse<CalendarResponseDTO.CalendarResponseMonthlyListDTO> getMonthlyCalendar(
+            @Parameter(name = "user", hidden = true) @AuthUser Member member,
+            @RequestParam(value = "year") int year,
+            @RequestParam(value = "month") int month){
+
+        CalendarResponseDTO.CalendarResponseMonthlyListDTO response = calendarService.getMonthlyRecords(year, month, member);
+
+        return ApiResponse.of(SuccessStatus.INQUERY_MONTH_CALENDAR_OK,response);
+    }
+
+    @GetMapping("/api/calender/count/daily")
+    @Operation(
+            summary = "일별 기록 조회 API")
+    public ApiResponse<List<CalendarResponseDTO.CalendarResponseDailyDTO>> getDailyCalendar(
             @Parameter(name = "user", hidden = true) @AuthUser Member member,
             @RequestParam(value = "date") LocalDate date){
 
-        CalendarResponseDTO response = calendarService.getRecord(date, member);
+        List<CalendarResponseDTO.CalendarResponseDailyDTO> response = calendarService.getDailyRecord(date, member);
 
-        return ApiResponse.of(SuccessStatus.INQUERY_MONTH_CALENDAR_OK,response);
+        return ApiResponse.of(SuccessStatus.INQUERY_DATE_CALENDAR_OK,response);
     }
 
     @DeleteMapping("/{calendarId}")
