@@ -30,12 +30,17 @@ jobs:
         ./gradlew clean build
         ls -l build/libs
       
-    - name: executing remote ssh commands using ssh key
+    - name: Create pem file
+      run: |
+        echo "${{ secrets.EC2_PEM_KEY }}" > ec2_key.pem
+        chmod 600 ec2_key.pem
+
+    - name: executing remote ssh commands using pem file
       uses: appleboy/ssh-action@v0.1.10
       with:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
-        key: ${{ secrets.EC2_SSH_KEY }}
+        key-path: ec2_key.pem  # 동적으로 생성된 pem 파일 경로
         port: 22
         script: |
           whoami
@@ -51,8 +56,8 @@ jobs:
       uses: appleboy/scp-action@v0.1.3
       with:
         username: ubuntu
-        host: ${{ secrets.HOST }}
-        key: ${{ secrets.PRIVATE_KEY }}
+        host: ${{ secrets.EC2_HOST }}
+        key: ${{ secrets.EC2_SSH_KEY }}
         source: "./build/libs/*.jar"
         target: "/home/ubuntu/cicd"
         debug: true
