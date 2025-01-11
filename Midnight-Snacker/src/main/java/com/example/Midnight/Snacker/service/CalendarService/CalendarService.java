@@ -17,4 +17,5 @@ public interface CalendarService {
     Long addRecord(Member member, Category category, Color color, MultipartFile image, RegisterRequestDTO request);
     List<CalendarInfoDTO> getCalendarInfo(LocalDate localDate);
     CalendarResponseDTO getRecord(LocalDate date, Member member);
+    void deleteRecord(Member member, Long calendarId);
 }

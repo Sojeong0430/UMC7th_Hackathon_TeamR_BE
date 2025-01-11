@@ -42,6 +42,9 @@ public enum ErrorStatus implements BaseErrorCode {
 
     // Post 관련
     POST_NOT_FOUND(HttpStatus.NOT_FOUND, "POST_001", "존재하지 않는 게시글입니다"),
+
+    //calendar
+    CALENDAR_NOT_FOUND(HttpStatus.NOT_FOUND,"CALENDAR_404", " 해당 기록을 찾으 수 없습니다.")
     ;
 
     private final HttpStatus httpStatus;

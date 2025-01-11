@@ -1,5 +1,6 @@
 package com.example.Midnight.Snacker.service.CalendarService;
 
+import com.example.Midnight.Snacker.apiPayload.code.status.ErrorStatus;
 import com.example.Midnight.Snacker.apiPayload.exception.CustomException;
 import com.example.Midnight.Snacker.converter.CalendarConverter;
 import com.example.Midnight.Snacker.domain.Calendar;
@@ -100,5 +101,27 @@ public class CalendarServiceImpl implements CalendarService {
     }
 
     //기록 삭제 method
+    @Override
+    @Transactional
+    public void deleteRecord(Member member, Long calendarId){
+        Calendar calendar =
+                calendarRepository.findById(calendarId)
+                        .orElseThrow(() -> new CustomException(ErrorStatus.CALENDAR_NOT_FOUND));
 
+        calendarRepository.deleteById(calendarId);
+
+
+        //member count 반영하기
+        if("BLACK".equalsIgnoreCase(calendar.getColor().name())){
+            member.setBlackCount(member.getBlackCount()-1);
+        }
+        if("White".equalsIgnoreCase(calendar.getColor().name())){
+            member.setWhiteCount(member.getWhiteCount()-1);
+        }
+
+        member.setTotalCount();
+
+        memberRepository.save(member);
+
+    }
 }
