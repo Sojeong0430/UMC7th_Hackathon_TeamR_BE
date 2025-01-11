@@ -10,5 +10,7 @@ public class MemberResponseDTO {
     public static class MyPageResponse {
         Long memberId;
         String nickname;
+        String email;
+        Float categories;
     }
 }

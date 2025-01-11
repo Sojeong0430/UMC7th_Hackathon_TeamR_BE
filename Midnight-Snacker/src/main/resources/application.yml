@@ -17,6 +17,10 @@ spring:
         hbm2ddl:
           auto: update
         default_batch_fetch_size: 1000
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
 kakao:
   auth:
     client: ${CLIENT_ID}
