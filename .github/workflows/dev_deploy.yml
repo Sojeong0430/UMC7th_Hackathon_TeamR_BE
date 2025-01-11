@@ -30,18 +30,13 @@ jobs:
         ./gradlew clean build
         ls -l build/libs
       
-    - name: Create pem file
-      run: |
-        echo "${{ secrets.EC2_SSH_KEY }}" > ec2_key.pem
-        chmod 600 ec2_key.pem
-
-    - name: executing remote ssh commands using pem file
+    - name: SSH to EC2
       uses: appleboy/ssh-action@v0.1.10
       with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USERNAME }}
-        key-path: ec2_key.pem  # 동적으로 생성된 pem 파일 경로
-        port: 22
+        host: ${{ secrets.EC2_HOST }}       
+        username: ${{ secrets.EC2_USERNAME }} 
+        key: ${{ secrets.EC2_SSH_KEY }}      
+        port: 22                              
         script: |
           whoami
           ls -al
