@@ -20,7 +20,7 @@ public enum SuccessStatus implements BaseCode {
     //Post
     POST_DELETE_OK(HttpStatus.OK, "POST2001", "게시글이 성공적으로 삭제되었습니다."),
 
-    
+
 
 
 
