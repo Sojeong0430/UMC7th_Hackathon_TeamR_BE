@@ -49,7 +49,8 @@ public class CalendarController {
     }
 
     @GetMapping
-    @Operation
+    @Operation(
+            summary = "모든 기록 조회 API")
     public ApiResponse<CalendarResponseDTO> showCalendar(
             @Parameter(name = "user", hidden = true) @AuthUser Member member,
             @RequestParam(value = "date") LocalDate date){
@@ -60,7 +61,7 @@ public class CalendarController {
     }
 
     @DeleteMapping("/{calendarId}")
-    @Operation
+    @Operation(summary = "기록 삭제")
     public ApiResponse<Void> deleteCalendar(
             @Parameter(name = "user", hidden = true) @AuthUser Member member,
             @PathVariable("calendarId") Long calendarId){
