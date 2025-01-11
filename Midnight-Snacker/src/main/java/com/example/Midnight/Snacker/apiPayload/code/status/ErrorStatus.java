@@ -50,7 +50,7 @@ public enum ErrorStatus implements BaseErrorCode {
 
 
     //calendar
-    CALENDAR_NOT_FOUND(HttpStatus.NOT_FOUND,"CALENDAR_404", " 해당 기록을 찾으 수 없습니다.");
+    CALENDAR_NOT_FOUND(HttpStatus.NOT_FOUND,"CALENDAR_404", " 해당 기록을 찾을 수 없습니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
