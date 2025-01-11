@@ -6,12 +6,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class CalendarResponseDTO {
-    private LocalDate date;
-
+    private int blackCount;
+    private int whiteCount;
+    private List<CalendarInfoDTO> calendarInfoDTOS;
 }

@@ -23,16 +23,21 @@ public class Calendar extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id; // id
 
+    @Column
     private String imageUrl; //이미지
 
+    @Column(nullable = false)
     private LocalDateTime date; //날짜
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Color color; //색깔
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Category category;
 
+    @Column(nullable = false)
     private String detailFood; //상세 음식
 
     @ManyToOne(fetch = FetchType.LAZY)

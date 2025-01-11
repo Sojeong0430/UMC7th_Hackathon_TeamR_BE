@@ -9,17 +9,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
+
 @Component
 @RequiredArgsConstructor
 public class CalendarConverter {
     public Calendar toCalendar(Member member,
-                               RegisterRequestDTO request,
+                               LocalDateTime date,
+                               String detailFood,
                                String imageUrl,
                                Category category,
                                Color color) {
         return Calendar.builder()
-                .date(request.getDate())
-                .detailFood(request.getDetailFood())
+                .date(date)
+                .detailFood(detailFood)
                 .color(color)
                 .category(category)
                 .imageUrl(imageUrl)
