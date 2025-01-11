@@ -26,7 +26,7 @@ public class RecommendServiceImpl implements RecommendService{
 
     public String createPrompt() {
         return String.format(
-                "저는 오후 10시에 먹을 야식을 찾고 있습니다. 건강한 야식(백)과 건강하지 않은 야식(흑)을 각각 한 개씩 추천해주세요. {한식, 중식, 일식, 양식, 아시안, 패스트푸드, 디저트, 고기} 카테고리 내에서 추천해주세요. 한국말로 추천해주세요. 그리고 각각 그 메뉴의 설명을 5가지씩 추가해주는데, 13자 이내로 작성해주세요. 메뉴는 아래의 형식으로 추천해주세요 : [{'흑', '메뉴명', '메뉴가 해당하는 카테고리', '설명1', '설명2', '설명3', '설명4', '설명5'}, {'백', '메뉴명', '메뉴가 해당하는 카테고리','설명1', '설명2', '설명3', '설명4', '설명5'}]"
+                "저는 오후 10시에 먹을 야식을 찾고 있습니다. 건강한 야식(백)과 건강하지 않은 야식(흑)을 각각 한 개씩 추천해주세요. {한식, 중식, 일식, 양식, 아시안, 패스트푸드, 디저트, 고기} 카테고리 내에서 추천해주세요. 한국말로 추천해주세요. 그리고 각각 그 메뉴의 설명을 3가지씩 추가해주는데, 13자 이내로 작성해주세요. 메뉴는 아래의 형식으로 추천해주세요 : [{'흑', '메뉴명', '메뉴가 해당하는 카테고리', '설명1', '설명2', '설명3'}, !!, {'백', '메뉴명', '메뉴가 해당하는 카테고리','설명1', '설명2', '설명3'}]"
         );
     }
 
@@ -89,7 +89,7 @@ public class RecommendServiceImpl implements RecommendService{
             // 응답 문자열을 리스트로 변환
             response = response.replaceAll("[\\[\\]{}']", ""); // 중괄호, 대괄호, 작은 따옴표 제거
             String[] rawItems = response.split("\\n"); // 각각의 아이템 분리
-
+            rawItems = response.split("(?=백)");
             // BLACK과 WHITE로 분리
             List<RecommendResponseDTO.RecommendationDTO> blackList = new ArrayList<>();
             List<RecommendResponseDTO.RecommendationDTO> whiteList = new ArrayList<>();
@@ -99,7 +99,7 @@ public class RecommendServiceImpl implements RecommendService{
                 String type = elements[0].trim(); // 흑 or 백
                 String menu = elements[1].trim(); // 메뉴
                 String category = elements[2].trim(); // 카테고리
-                List<String> descriptions = Arrays.asList(elements[3], elements[4], elements[5], elements[6], elements[7]); // 설명 리스트
+                List<String> descriptions = Arrays.asList(elements[3], elements[4], elements[5]); // 설명 리스트
 
                 RecommendResponseDTO.RecommendationDTO dto = RecommendResponseDTO.RecommendationDTO.builder()
                         .type(convertToColor(type))
