@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
@@ -26,6 +28,7 @@ public class CommentServiceImpl implements CommentService {
                 .content(content)
                 .post(post)
                 .member(member)
+                .date(LocalDateTime.now())
                 .build();
         commentRepository.save(newComment);
         return newComment;

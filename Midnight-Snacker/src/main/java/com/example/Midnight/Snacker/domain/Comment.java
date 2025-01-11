@@ -21,7 +21,7 @@ public class Comment extends BaseEntity {
     private String content;
 
     @Column(nullable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime date;
 
     //외래키 이름은 postId로 저장되도록 함.
     @ManyToOne(fetch = FetchType.LAZY)
