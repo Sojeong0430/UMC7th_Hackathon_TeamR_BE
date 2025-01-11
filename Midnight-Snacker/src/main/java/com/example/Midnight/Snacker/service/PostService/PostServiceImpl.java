@@ -1,6 +1,7 @@
 package com.example.Midnight.Snacker.service.PostService;
 
 import com.example.Midnight.Snacker.apiPayload.exception.handler.PostHandler;
+import com.example.Midnight.Snacker.domain.Comment;
 import com.example.Midnight.Snacker.domain.Member;
 import com.example.Midnight.Snacker.domain.Post;
 import com.example.Midnight.Snacker.repository.CommentRepository;
@@ -8,6 +9,7 @@ import com.example.Midnight.Snacker.repository.MemberRepository;
 import com.example.Midnight.Snacker.repository.PostRepository;
 import com.example.Midnight.Snacker.apiPayload.code.status.ErrorStatus;
 import com.example.Midnight.Snacker.web.controller.PostController;
+import com.example.Midnight.Snacker.web.dto.CommentDTO.CommentResponseDTO;
 import com.example.Midnight.Snacker.web.dto.PostDTO.PostInfoDTO;
 import com.example.Midnight.Snacker.web.dto.PostDTO.PostResponseDTO;
 import lombok.AllArgsConstructor;
@@ -66,9 +68,36 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public PostResponseDTO.getPostResponseDTO getPost(){
+    public PostResponseDTO.getPostResponseDTO getPosts(){
         List<PostInfoDTO> posts = getPostInfo();
 
         return new PostResponseDTO.getPostResponseDTO(posts);
     }
+
+    @Override
+    @Transactional
+    public List<CommentResponseDTO.CommentInfoDTO> getComments(Long postId){
+        List<Comment> comments = commentRepository.findAllByPostId(postId);
+
+        return comments.stream()
+                . map(comment -> new CommentResponseDTO.CommentInfoDTO(
+                        comment.getId(),
+                        comment.getMember().getNickname(),
+                        comment.getContent(),
+                        comment.getDate().toLocalDate()
+                )).toList();
+    }
+
+    @Override
+    @Transactional
+    public PostResponseDTO.getIndiPostResponseDTO getPost(Long postId){
+        List<CommentResponseDTO.CommentInfoDTO> comments = getComments(postId);
+
+        Post post = postRepository.findById(postId).get();
+
+        return new PostResponseDTO.getIndiPostResponseDTO(
+                post.getMember().getNickname(), post.getTitle(),
+                post.getBody(), post.getImageUrl(), comments);
+    }
+
 }
