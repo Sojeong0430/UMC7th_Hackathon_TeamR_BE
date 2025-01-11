@@ -28,10 +28,12 @@ public class PostResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class getIndiPostResponseDTO{
+        private Long memberId;
         private String nickname;
         private String title;
         private String body;
         private String imageUrl;
         private List<CommentResponseDTO.CommentInfoDTO> comments;
+        private float rating;
     }
 }
