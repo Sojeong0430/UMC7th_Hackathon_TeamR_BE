@@ -1,4 +1,4 @@
-package com.example.Midnight.Snacker.apiPlayload.code;
+package com.example.Midnight.Snacker.apiPayload.code;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @Builder
-public class ErrorReasonDTO {
+public class ReasonDTO {
     private HttpStatus httpStatus;
 
     private final boolean isSuccess;
@@ -15,4 +15,3 @@ public class ErrorReasonDTO {
 
     public boolean getIsSuccess(){return isSuccess;}
 }
-

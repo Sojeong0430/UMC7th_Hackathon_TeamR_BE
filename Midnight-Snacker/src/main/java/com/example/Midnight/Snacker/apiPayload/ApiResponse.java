@@ -1,12 +1,12 @@
-package com.example.Midnight.Snacker.apiPlayload;
+package com.example.Midnight.Snacker.apiPayload;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import com.example.Midnight.Snacker.apiPlayload.code.status.SuccessStatus;
-import com.example.Midnight.Snacker.apiPlayload.code.BaseCode;
+import com.example.Midnight.Snacker.apiPayload.code.status.SuccessStatus;
+import com.example.Midnight.Snacker.apiPayload.code.BaseCode;
 
 @Getter
 @AllArgsConstructor

@@ -1,8 +1,8 @@
-package com.example.Midnight.Snacker.apiPlayload.exception;
+package com.example.Midnight.Snacker.apiPayload.exception;
 
-import com.example.Midnight.Snacker.apiPlayload.ApiResponse;
-import com.example.Midnight.Snacker.apiPlayload.code.ErrorReasonDTO;
-import com.example.Midnight.Snacker.apiPlayload.code.status.ErrorStatus;
+import com.example.Midnight.Snacker.apiPayload.ApiResponse;
+import com.example.Midnight.Snacker.apiPayload.code.ErrorReasonDTO;
+import com.example.Midnight.Snacker.apiPayload.code.status.ErrorStatus;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;

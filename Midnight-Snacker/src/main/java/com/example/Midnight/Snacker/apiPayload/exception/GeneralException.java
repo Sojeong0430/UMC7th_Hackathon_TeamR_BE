@@ -1,7 +1,7 @@
-package com.example.Midnight.Snacker.apiPlayload.exception;
+package com.example.Midnight.Snacker.apiPayload.exception;
 
-import com.example.Midnight.Snacker.apiPlayload.code.BaseErrorCode;
-import com.example.Midnight.Snacker.apiPlayload.code.ErrorReasonDTO;
+import com.example.Midnight.Snacker.apiPayload.code.BaseErrorCode;
+import com.example.Midnight.Snacker.apiPayload.code.ErrorReasonDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

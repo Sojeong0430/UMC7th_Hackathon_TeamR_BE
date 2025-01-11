@@ -1,4 +1,4 @@
-package com.example.Midnight.Snacker.apiPlayload.code;
+package com.example.Midnight.Snacker.apiPayload.code;
 
 public interface BaseCode {
     ReasonDTO getReason();
