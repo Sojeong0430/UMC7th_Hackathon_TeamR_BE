@@ -32,7 +32,7 @@ public class PostController {
     private final S3ImageService s3ImageService;
 
     @ResponseStatus(code = HttpStatus.CREATED)
-    @Operation(summary = "게시글 생성", description = "게시글 생성 API입니다")
+    @Operation(summary = "게시글 생성 API", description = "게시글을 생성합니다")
     @ApiResponses({@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON201", description="등록성공")})
     @PostMapping(value = "/api/post/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     ApiResponse<PostResponseDTO.addPostResponseDTO> AddPost(@Parameter(name = "user", hidden = true) @AuthUser Member member,
@@ -48,6 +48,7 @@ public class PostController {
         return ApiResponse.onSuccess(PostConverter.addPostToResultDTO(post));
     }
 
+    @Operation(summary = "게시글 삭제 API", description = "게시글을 삭제합니다")
     @DeleteMapping("/api/post/{postId}")
     public ApiResponse<Void> DeletePost(@PathVariable(name = "postId") long postId){
         postService.DeletePost(postId);

@@ -23,7 +23,6 @@ public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
-    //private fin
 
     @Override
     public Post AddPost(String title, String body, String imageUrl, LocalDateTime date, Member member) {
