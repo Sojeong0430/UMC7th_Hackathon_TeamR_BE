@@ -40,6 +40,6 @@ public class Post extends BaseEntity {
     private Member member;
 
     //mappedBy는 매핑되는 onetomany 필드 부분에서 지정된 변수명
-    @OneToMany (mappedBy = "post")
+    @OneToMany (mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 }
