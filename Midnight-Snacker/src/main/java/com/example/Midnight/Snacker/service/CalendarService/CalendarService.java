@@ -1,26 +1,14 @@
 package com.example.Midnight.Snacker.service.CalendarService;
 
-import com.example.Midnight.Snacker.repository.CalendarRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.example.Midnight.Snacker.domain.Member;
+import com.example.Midnight.Snacker.domain.enums.Category;
+import com.example.Midnight.Snacker.domain.enums.Color;
+import com.example.Midnight.Snacker.web.dto.CalendarDTO.RegisterRequestDTO;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Service
-@RequiredArgsConstructor
-public class CalendarService {
-    private final CalendarRepository calendarRepository;
-
-    //야식 기록 추가 method
-    //enum
-    public Long addRecord(LocalDate date, String detailFood, String category, String colorType){
-
-    }
-    //월별 기록 조회 method
-
-    //일별 기록 조회 method
-
-    //기록 삭제 method
-
+public interface CalendarService {
+    Long addRecord(Member member, Category category, Color color, MultipartFile image, RegisterRequestDTO request);
 }
