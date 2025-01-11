@@ -22,6 +22,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
+
 @RestController
 @RequiredArgsConstructor
 public class PostController {
@@ -40,8 +42,9 @@ public class PostController {
 
         String title = request.getTitle();
         String body = request.getBody();
+        LocalDateTime date = LocalDateTime.now();
 
-        Post post = postService.AddPost(title, body, imageUrl, member);
+        Post post = postService.AddPost(title, body, imageUrl,date ,member);
         return ApiResponse.onSuccess(PostConverter.addPostToResultDTO(post));
     }
 
@@ -51,4 +54,8 @@ public class PostController {
         return ApiResponse.of(SuccessStatus.POST_DELETE_OK, null);
     }
 
+    /*@GetMapping("/api/post/all")
+    @Operation
+    public ApiResponse<PostResponseDTO> getAllPosts(){}
+*/
 }

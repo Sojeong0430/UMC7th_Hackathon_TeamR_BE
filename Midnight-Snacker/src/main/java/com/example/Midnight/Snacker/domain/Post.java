@@ -19,7 +19,6 @@ import java.util.List;
 @AllArgsConstructor
 public class Post extends BaseEntity {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id; // id
@@ -31,7 +30,10 @@ public class Post extends BaseEntity {
     private String body;
 
     @Column(nullable = true)
-    private String image_url; //사진
+    private String imageUrl; //사진
+
+    @Column(nullable = false)
+    private LocalDateTime date = LocalDateTime.now();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberId", nullable = false)
