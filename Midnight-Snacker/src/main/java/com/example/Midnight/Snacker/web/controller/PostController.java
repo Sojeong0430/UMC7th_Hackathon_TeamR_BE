@@ -46,7 +46,7 @@ public class PostController {
     }
 
     @DeleteMapping("/api/post/{postId}")
-    public ApiResponse<Void> DeletePost(@PathVariable long postId){
+    public ApiResponse<Void> DeletePost(@PathVariable(name = "postId") long postId){
         postService.DeletePost(postId);
         return ApiResponse.of(SuccessStatus.POST_DELETE_OK, null);
     }
