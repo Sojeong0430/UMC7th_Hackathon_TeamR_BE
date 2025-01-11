@@ -48,7 +48,7 @@ public class CalendarController {
         return ApiResponse.of(SuccessStatus.ADD_CALENDAR_OK, calendarId);
     }
 
-    @GetMapping("/api/calender/monthly")
+    @GetMapping("/monthly")
     @Operation(
             summary = "월별 기록 조회 API")
     public ApiResponse<CalendarResponseDTO.CalendarResponseMonthlyListDTO> getMonthlyCalendar(
@@ -61,7 +61,7 @@ public class CalendarController {
         return ApiResponse.of(SuccessStatus.INQUERY_MONTH_CALENDAR_OK,response);
     }
 
-    @GetMapping("/api/calender/count/daily")
+    @GetMapping("/daily")
     @Operation(
             summary = "일별 기록 조회 API")
     public ApiResponse<List<CalendarResponseDTO.CalendarResponseDailyDTO>> getDailyCalendar(
@@ -83,7 +83,7 @@ public class CalendarController {
     }
 
 
-    @GetMapping("/api/calender/count")
+    @GetMapping("/count")
     @Operation(summary = "한달 동안의 야식 카테고리 결산")
     public ApiResponse<calenderCountResponseDTO.MissionPreviewListDTO> monthCategoryCount(
             @Parameter(name = "user", hidden = true) @AuthUser Member member)
