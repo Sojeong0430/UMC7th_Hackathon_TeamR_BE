@@ -13,7 +13,10 @@ public class CalendarService {
     private final CalendarRepository calendarRepository;
 
     //야식 기록 추가 method
-    public Long addRecord(LocalDate date, String)
+    //enum
+    public Long addRecord(LocalDate date, String detailFood, String category, String colorType){
+
+    }
     //월별 기록 조회 method
 
     //일별 기록 조회 method
