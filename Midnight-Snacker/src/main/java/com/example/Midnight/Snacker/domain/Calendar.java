@@ -1,7 +1,7 @@
 package com.example.Midnight.Snacker.domain;
 
 import com.example.Midnight.Snacker.domain.common.BaseEntity;
-import com.example.Midnight.Snacker.domain.enums.Category;
+import com.example.Midnight.Snacker.domain.enums.CategoryE;
 import com.example.Midnight.Snacker.domain.enums.Color;
 import jakarta.persistence.*;
 import lombok.*;
@@ -35,7 +35,7 @@ public class Calendar extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Category category;
+    private CategoryE categoryE;
 
     @Column(nullable = false)
     private String detailFood; //상세 음식

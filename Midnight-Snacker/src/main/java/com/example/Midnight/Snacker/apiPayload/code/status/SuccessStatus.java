@@ -28,6 +28,7 @@ public enum SuccessStatus implements BaseCode {
     //캘린더
     ADD_CALENDAR_OK(HttpStatus.OK, "COMMON200", "달력에 기록이 되었습니다."),
     INQUERY_MONTH_CALENDAR_OK(HttpStatus.OK, "COMMON200", "달력을 불러왔습니다."),
+    MONTH_CATEGORY_COUNT_OK(HttpStatus.OK, "COMMON200", "한달 동안의 야식 카테고리 결산입니다."),
 
     //기록
     INQUERY_DATE_CALENDAR_OK(HttpStatus.OK,"COMMON200", "기록을 불러왔습니다."),
