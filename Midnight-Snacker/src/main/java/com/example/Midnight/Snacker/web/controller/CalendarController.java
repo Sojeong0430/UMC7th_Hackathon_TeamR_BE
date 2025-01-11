@@ -37,11 +37,8 @@ public class CalendarController {
             @Parameter(name = "user", hidden = true) @AuthUser Member member,
             @RequestParam(value = "categoryE") CategoryE categoryE,
             @RequestParam(value = "colorType")Color color,
-            @RequestParam(value = "date") LocalDateTime date,
+            @RequestParam(value = "date")LocalDateTime date,
             @RequestParam(value = "detailFood") String detailFood,
-            //@RequestPart("request")RegisterRequestDTO request,
-            //@RequestPart(value = "date") LocalDateTime date,
-            //@RequestPart(value = "detailFood") String detailFood,
             @RequestPart(value = "image") MultipartFile image){
         //Long calendarId = calendarService.addRecord(member, category, color, image, request);
 

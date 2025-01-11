@@ -12,8 +12,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface CalendarService {
+
     //Long addRecord(Member member, Category category, Color color, MultipartFile image, RegisterRequestDTO request);
     Long addRecord(Member member, CategoryE categoryE, Color color, MultipartFile image, LocalDateTime date, String detailFood);
+
     List<CalendarInfoDTO> getCalendarInfo(LocalDate localDate);
     CalendarResponseDTO getRecord(LocalDate date, Member member);
     void deleteRecord(Member member, Long calendarId);

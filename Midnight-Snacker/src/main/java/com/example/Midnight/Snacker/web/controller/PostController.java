@@ -22,6 +22,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
+
 @RestController
 @RequiredArgsConstructor
 public class PostController {
@@ -30,7 +32,7 @@ public class PostController {
     private final S3ImageService s3ImageService;
 
     @ResponseStatus(code = HttpStatus.CREATED)
-    @Operation(summary = "게시글 생성", description = "게시글 생성 API입니다")
+    @Operation(summary = "게시글 생성 API", description = "게시글을 생성합니다")
     @ApiResponses({@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON201", description="등록성공")})
     @PostMapping(value = "/api/post/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     ApiResponse<PostResponseDTO.addPostResponseDTO> AddPost(@Parameter(name = "user", hidden = true) @AuthUser Member member,
@@ -40,15 +42,23 @@ public class PostController {
 
         String title = request.getTitle();
         String body = request.getBody();
+        LocalDateTime date = LocalDateTime.now();
 
-        Post post = postService.AddPost(title, body, imageUrl, member);
+        Post post = postService.AddPost(title, body, imageUrl,date ,member);
         return ApiResponse.onSuccess(PostConverter.addPostToResultDTO(post));
     }
 
+    @Operation(summary = "게시글 삭제 API", description = "게시글을 삭제합니다")
     @DeleteMapping("/api/post/{postId}")
     public ApiResponse<Void> DeletePost(@PathVariable(name = "postId") long postId){
         postService.DeletePost(postId);
         return ApiResponse.of(SuccessStatus.POST_DELETE_OK, null);
     }
 
+    @GetMapping("/api/post/all")
+    @Operation
+    public ApiResponse<PostResponseDTO.getPostResponseDTO> getAllPosts() {
+        PostResponseDTO.getPostResponseDTO response = postService.getPost();
+        return ApiResponse.of(SuccessStatus.INQUERY_POST_OK,response);
+    }
 }

@@ -23,7 +23,7 @@ public class Calendar extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id; // id
 
-    @Column
+    @Column(nullable = true)
     private String imageUrl; //이미지
 
     @Column(nullable = false)

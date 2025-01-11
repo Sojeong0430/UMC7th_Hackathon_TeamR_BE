@@ -39,13 +39,18 @@ public enum ErrorStatus implements BaseErrorCode {
     USER_EXISTS(HttpStatus.BAD_REQUEST, "USER_002", "이미 존재하는 아이디입니다."),
     USER_DELETE_FAILED(HttpStatus.NOT_FOUND, "USER_003", "회원 탈퇴에 실패했습니다."),
 
+    // Post
+    POST_NOT_FOUND(HttpStatus.NOT_FOUND, "POST_001", "관련게시글을 찾을 수 없습니다."),
 
-    // Post 관련
-    POST_NOT_FOUND(HttpStatus.NOT_FOUND, "POST_001", "존재하지 않는 게시글입니다"),
+
+    // Comment 관련
+    COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "COMMENT_001", "댓글 달기가 실패하였습니다."),
+    COMMENT_DELETE_FAILD(HttpStatus.NOT_FOUND, "COMMENT_002", "댓글 삭제를 실패하였습니다."),
+
+
 
     //calendar
-    CALENDAR_NOT_FOUND(HttpStatus.NOT_FOUND,"CALENDAR_404", " 해당 기록을 찾으 수 없습니다.")
-    ;
+    CALENDAR_NOT_FOUND(HttpStatus.NOT_FOUND,"CALENDAR_404", " 해당 기록을 찾으 수 없습니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
