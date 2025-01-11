@@ -23,7 +23,6 @@ public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
-
     @Override
     public Post AddPost(String title, String body, String imageUrl, LocalDateTime date, Member member) {
         Post newPost = Post.builder()
@@ -46,7 +45,7 @@ public class PostServiceImpl implements PostService {
         postRepository.delete(post);
     } // 게시글 삭제
 
-    @Override
+    /*@Override
     @Transactional
     public List<PostInfoDTO> getPostInfo(){
         List<Post> posts = postRepository.findAll();
@@ -67,5 +66,5 @@ public class PostServiceImpl implements PostService {
     @Transactional
     public PostResponseDTO.getPostResponseDTO getPost(Member member){
 
-    }
+    }*/
 }

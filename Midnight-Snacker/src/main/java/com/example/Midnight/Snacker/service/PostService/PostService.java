@@ -12,7 +12,7 @@ import java.util.List;
 public interface PostService {
 
     Post AddPost(String title, String body, String imageUrl, LocalDateTime date, Member member); //게시글 등록
-    List<PostInfoDTO> getPostInfo();
-    PostResponseDTO.getPostResponseDTO getPost();
+    //List<PostInfoDTO> getPostInfo();
+    //PostResponseDTO.getPostResponseDTO getPost();
     void DeletePost(long id); //게시글 삭제
 }
