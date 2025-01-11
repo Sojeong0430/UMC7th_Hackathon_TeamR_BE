@@ -2,7 +2,6 @@ package com.example.Midnight.Snacker.repository;
 
 import com.example.Midnight.Snacker.domain.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 

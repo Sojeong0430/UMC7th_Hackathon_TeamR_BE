@@ -1,6 +1,7 @@
 package com.example.Midnight.Snacker.service.CommentService;
 
 import com.example.Midnight.Snacker.apiPayload.code.status.ErrorStatus;
+import com.example.Midnight.Snacker.apiPayload.exception.handler.CommentHandler;
 import com.example.Midnight.Snacker.apiPayload.exception.handler.PostHandler;
 import com.example.Midnight.Snacker.domain.Comment;
 import com.example.Midnight.Snacker.domain.Member;
@@ -30,7 +31,8 @@ public class CommentServiceImpl implements CommentService {
     } //댓글 달기
 
     @Override
-    public Comment deleteComment(long commentId) {
-        return null;
+    public void deleteComment(long id) {
+        Comment comment = commentRepository.findById(id).orElseThrow(() ->new CommentHandler(ErrorStatus.COMMENT_NOT_FOUND));
+        commentRepository.delete(comment);
     }//댓글 삭제
 }

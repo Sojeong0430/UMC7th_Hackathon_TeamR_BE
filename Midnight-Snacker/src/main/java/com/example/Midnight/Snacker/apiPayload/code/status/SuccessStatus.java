@@ -22,6 +22,7 @@ public enum SuccessStatus implements BaseCode {
 
     //Comment
     COMMENT_POST_OK(HttpStatus.OK, "COMMENT2001", "댓글이 성공적으로 달렸습니다."),
+    COMMENT_DELETE_OK(HttpStatus.OK, "COMMENT2002", "댓글이 성공적으로 삭제되었습니다."),
 
     //캘린더
     ADD_CALENDAR_OK(HttpStatus.OK, "COMMON200", "달력에 기록이 되었습니다."),
