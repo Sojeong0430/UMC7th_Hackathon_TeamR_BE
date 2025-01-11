@@ -52,6 +52,8 @@ public class CalendarServiceImpl implements CalendarService {
             member.setWhiteCount(member.getWhiteCount()+1);
         }
 
+        member.setTotalCount();
+
         memberRepository.save(member);
 
        return savedCalendar.getId();
@@ -65,7 +67,7 @@ public class CalendarServiceImpl implements CalendarService {
         LocalDateTime endDateTime = localDate.atTime(23, 59, 59);
 
         //repository로 찾기
-        List<Calendar> calendars = calendarRepository.findAllByDateBetween(startDateTime, endDateTime);
+        List<Calendar> calendars = calendarRepository.findAllByDateBetweenOrderByDateAsc(startDateTime, endDateTime);
 
         return calendars.stream()
                 .map(calendar -> new CalendarInfoDTO(

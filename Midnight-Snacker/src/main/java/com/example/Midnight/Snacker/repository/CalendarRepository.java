@@ -10,5 +10,5 @@ import java.util.List;
 
 
 public interface CalendarRepository extends JpaRepository<Calendar, Long> {
-    List<Calendar> findAllByDateBetween(LocalDateTime startDate, LocalDateTime endDate);
+    List<Calendar> findAllByDateBetweenOrderByDateAsc(LocalDateTime startDate, LocalDateTime endDate);
 }
