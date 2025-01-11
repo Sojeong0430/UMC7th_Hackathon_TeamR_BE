@@ -33,9 +33,6 @@ public class Post extends BaseEntity {
     @Column(nullable = true)
     private String image_url; //사진
 
-    @Column(nullable = false)
-    private LocalDateTime createdAt; //생성일
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberId", nullable = false)
     private Member member;
