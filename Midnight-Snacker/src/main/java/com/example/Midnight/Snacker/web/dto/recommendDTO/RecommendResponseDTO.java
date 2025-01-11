@@ -1,6 +1,6 @@
 package com.example.Midnight.Snacker.web.dto.recommendDTO;
 
-import com.example.Midnight.Snacker.domain.enums.Category;
+import com.example.Midnight.Snacker.domain.enums.CategoryE;
 import com.example.Midnight.Snacker.domain.enums.Color;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +18,7 @@ public class RecommendResponseDTO {
     public static class RecommendationDTO {
         private Color type;
         private String menu;
-        private Category category;
+        private CategoryE categoryE;
         private List<String> description;
     }
 

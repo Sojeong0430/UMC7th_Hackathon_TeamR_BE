@@ -56,9 +56,10 @@ public class PostController {
     }
 
     @GetMapping("/api/post/all")
-    @Operation
+    @Operation(
+            summary = "모든 게시분 조회 API")
     public ApiResponse<PostResponseDTO.getPostResponseDTO> getAllPosts() {
-        PostResponseDTO.getPostResponseDTO response = postService.getPost();
+        PostResponseDTO.getPostResponseDTO response = null;
         return ApiResponse.of(SuccessStatus.INQUERY_POST_OK,response);
     }
 }
