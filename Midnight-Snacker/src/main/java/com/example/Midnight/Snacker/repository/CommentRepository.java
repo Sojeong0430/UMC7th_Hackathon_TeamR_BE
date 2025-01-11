@@ -3,6 +3,8 @@ package com.example.Midnight.Snacker.repository;
 import com.example.Midnight.Snacker.domain.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CommentRepository extends JpaRepository<Comment, Long> {
+import java.util.List;
 
+public interface CommentRepository extends JpaRepository<Comment, Long> {
+    List<Comment> findAllByPostId(Long postId);
 }

@@ -1,12 +1,15 @@
 package com.example.Midnight.Snacker.service.PostService;
 
 import com.example.Midnight.Snacker.apiPayload.exception.handler.PostHandler;
+import com.example.Midnight.Snacker.domain.Comment;
 import com.example.Midnight.Snacker.domain.Member;
 import com.example.Midnight.Snacker.domain.Post;
+import com.example.Midnight.Snacker.repository.CommentRepository;
 import com.example.Midnight.Snacker.repository.MemberRepository;
 import com.example.Midnight.Snacker.repository.PostRepository;
 import com.example.Midnight.Snacker.apiPayload.code.status.ErrorStatus;
 import com.example.Midnight.Snacker.web.controller.PostController;
+import com.example.Midnight.Snacker.web.dto.CommentDTO.CommentResponseDTO;
 import com.example.Midnight.Snacker.web.dto.PostDTO.PostInfoDTO;
 import com.example.Midnight.Snacker.web.dto.PostDTO.PostResponseDTO;
 import lombok.AllArgsConstructor;
@@ -22,6 +25,8 @@ import java.util.List;
 public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
+    private final MemberRepository memberRepository;
+    private final CommentRepository commentRepository;
 
     @Override
     public Post AddPost(String title, String body, String imageUrl, LocalDateTime date, Member member) {
@@ -37,7 +42,6 @@ public class PostServiceImpl implements PostService {
         Post savedPost = postRepository.save(newPost);
 
         return savedPost;
-
     } //게시글 등록
 
     @Override
@@ -46,10 +50,10 @@ public class PostServiceImpl implements PostService {
         postRepository.delete(post);
     } // 게시글 삭제
 
-    /*@Override
+    @Override
     @Transactional
     public List<PostInfoDTO> getPostInfo(){
-        List<Post> posts = postRepository.findAll();
+        List<Post> posts = postRepository.findAllByOrderByDateDesc();
 
         return posts.stream()
                 . map(post -> new PostInfoDTO(
@@ -58,14 +62,43 @@ public class PostServiceImpl implements PostService {
                         post.getBody(),
                         post.getDate().toLocalDate(),
                         post.getImageUrl(),
-                        post.
+                        post.getComments().size()
+                )).toList();
+    }
+
+    @Override
+    @Transactional
+    public PostResponseDTO.getPostResponseDTO getPosts(){
+        List<PostInfoDTO> posts = getPostInfo();
+
+        return new PostResponseDTO.getPostResponseDTO(posts);
+    }
+
+    @Override
+    @Transactional
+    public List<CommentResponseDTO.CommentInfoDTO> getComments(Long postId){
+        List<Comment> comments = commentRepository.findAllByPostId(postId);
+
+        return comments.stream()
+                . map(comment -> new CommentResponseDTO.CommentInfoDTO(
+                        comment.getId(),
+                        comment.getMember().getNickname(),
+                        comment.getContent(),
+                        comment.getDate().toLocalDate()
                 )).toList();
     }
 
 
     @Override
     @Transactional
-    public PostResponseDTO.getPostResponseDTO getPost(Member member){
+    public PostResponseDTO.getIndiPostResponseDTO getPost(Long postId){
+        List<CommentResponseDTO.CommentInfoDTO> comments = getComments(postId);
 
-    }*/
+        Post post = postRepository.findById(postId).get();
+
+        return new PostResponseDTO.getIndiPostResponseDTO(
+                post.getMember().getNickname(), post.getTitle(),
+                post.getBody(), post.getImageUrl(), comments);
+    }
+
 }

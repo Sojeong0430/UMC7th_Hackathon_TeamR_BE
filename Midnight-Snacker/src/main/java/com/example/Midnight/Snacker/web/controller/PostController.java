@@ -59,7 +59,18 @@ public class PostController {
     @Operation(
             summary = "모든 게시분 조회 API")
     public ApiResponse<PostResponseDTO.getPostResponseDTO> getAllPosts() {
-        PostResponseDTO.getPostResponseDTO response = null;
+        PostResponseDTO.getPostResponseDTO response = postService.getPosts();
         return ApiResponse.of(SuccessStatus.INQUERY_POST_OK,response);
+    }
+
+    @GetMapping("/api/post/{postId}")
+    @Operation(
+            summary = "개별 게시물 조회 API"
+    )
+    public ApiResponse<PostResponseDTO.getIndiPostResponseDTO> getPost(
+            @PathVariable(name = "postId") Long postId) {
+        PostResponseDTO.getIndiPostResponseDTO response =
+                postService.getPost(postId);
+        return ApiResponse.of(SuccessStatus.INQUERY_INDIVI_POST_OK, response);
     }
 }
