@@ -1,6 +1,7 @@
 package com.example.Midnight.Snacker.security.handler.resolver;
 
 import com.example.Midnight.Snacker.apiPayload.exception.AuthException;
+import com.example.Midnight.Snacker.security.principal.PrincipalDetails;
 import com.example.Midnight.Snacker.service.MemberService.MemberService;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -50,10 +51,11 @@ public class AuthUserArgumentResolver implements HandlerMethodArgumentResolver {
             throw new AuthException(ErrorStatus.USER_NOT_FOUND);
         }
 
-        UsernamePasswordAuthenticationToken authenticationToken =
-                (UsernamePasswordAuthenticationToken) authentication;
-        Long userId = Long.valueOf(authenticationToken.getName());
-
-        return memberService.findMemberById(userId);
+        if (principal instanceof PrincipalDetails) {
+            PrincipalDetails userDetails = (PrincipalDetails) principal;
+            Long userId = userDetails.getId();
+            return memberService.findMemberById(userId);
+        }
+        return null;
     }
 }
