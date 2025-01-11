@@ -90,7 +90,7 @@ public class PostServiceImpl implements PostService {
                         comment.getMember().getNickname(),
                         getRate(comment.getMember()),
                         comment.getContent(),
-                        comment.getDate().toLocalDate()
+                        comment.getDate()
                 )).toList();
     }
 
