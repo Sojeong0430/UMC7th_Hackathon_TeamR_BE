@@ -39,6 +39,9 @@ public enum ErrorStatus implements BaseErrorCode {
 
     // Post 관련
     POST_NOT_FOUND(HttpStatus.NOT_FOUND, "POST_001", "존재하지 않는 게시글입니다"),
+
+    // Comment 관련
+    COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "COMMENT_001", "댓글 달기가 실패하였습니다.")
     ;
 
     private final HttpStatus httpStatus;

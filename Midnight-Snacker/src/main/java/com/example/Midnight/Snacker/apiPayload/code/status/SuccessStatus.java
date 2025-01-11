@@ -18,7 +18,10 @@ public enum SuccessStatus implements BaseCode {
     MYPAGE_OK(HttpStatus.OK, "AUTH2004", "마이페이지 조회가 완료되었습니다."),
 
     //Post
-    POST_DELETE_OK(HttpStatus.OK, "POST2001", "게시글이 성공적으로 삭제되었습니다.")
+    POST_DELETE_OK(HttpStatus.OK, "POST2001", "게시글이 성공적으로 삭제되었습니다."),
+
+    //Comment
+    COMMENT_POST_OK(HttpStatus.OK, "COMMENT2001", "댓글이 성공적으로 달렸습니다.")
     ;
 
     private final HttpStatus httpStatus;
