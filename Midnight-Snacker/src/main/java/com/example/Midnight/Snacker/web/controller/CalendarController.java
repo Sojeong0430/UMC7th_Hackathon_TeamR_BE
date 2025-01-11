@@ -39,14 +39,14 @@ public class CalendarController {
         Long calendarId = calendarService.addRecord(member, category,
                 color, image, request);
 
-        return ApiResponse.of(SuccessStatus._OK, calendarId);
+        return ApiResponse.of(SuccessStatus.ADD_CALENDAR_OK, calendarId);
     }
 
-    /*@GetMapping
+    @GetMapping
     @Operation
     public ApiResponse<CalendarResponseDTO> showCalendar(
             @RequestParam(value = "date") LocalDate date){
 
-        return ApiResponse.of(SuccessStatus._OK,)
-    }*/
+        return ApiResponse.of(SuccessStatus.INQUERY_MONTH_CALENDAR_OK,)
+    }
 }
