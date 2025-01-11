@@ -16,6 +16,7 @@ import com.example.Midnight.Snacker.web.dto.MemberDTO.MemberResponseDTO;
 import com.example.Midnight.Snacker.web.dto.authDTO.KakaoProfile;
 import com.example.Midnight.Snacker.web.dto.authDTO.OAuthToken;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
