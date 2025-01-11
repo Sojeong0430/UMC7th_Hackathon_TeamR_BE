@@ -106,12 +106,12 @@ public class MemberServiceImpl implements MemberService{
 
         LocalDateTime now = LocalDateTime.now();
 
-        LocalDateTime firstDayOfMonth = now.withDayOfMonth(1);
-        LocalDateTime lastDayOfMonth = now;
+        LocalDateTime startOfMonth = now.withDayOfMonth(1).withHour(0).withMinute(0).withSecond(0).withNano(0);
+        LocalDateTime endOfMonth = now.withHour(23).withMinute(59).withSecond(59).withNano(999999999);
 
-        int blackCount = calendarRepository.countByMemberAndColorAndDateBetween(member, Color.BLACK, firstDayOfMonth, lastDayOfMonth);
+        int blackCount = calendarRepository.countByMemberAndColorAndDateBetween(member, Color.BLACK, startOfMonth, endOfMonth);
 
-        int totalCount = calendarRepository.countByMemberAndDateBetween(member, firstDayOfMonth, lastDayOfMonth);
+        int totalCount = calendarRepository.countByMemberAndDateBetween(member, startOfMonth, endOfMonth);
 
         float rating = totalCount == 0 ? 0 : ((float) blackCount / totalCount) * 100;
 
