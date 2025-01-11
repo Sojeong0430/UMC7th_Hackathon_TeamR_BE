@@ -19,7 +19,7 @@ public enum SuccessStatus implements BaseCode {
 
     //Post
     POST_DELETE_OK(HttpStatus.OK, "POST2001", "게시글이 성공적으로 삭제되었습니다."),
-
+    INQUERY_POST_OK(HttpStatus.OK, "POST201", "게시글 전체를 불러왔습니다."),
     //캘린더
     ADD_CALENDAR_OK(HttpStatus.OK, "COMMON200", "달력에 기록이 되었습니다."),
     INQUERY_MONTH_CALENDAR_OK(HttpStatus.OK, "COMMON200", "달력을 불러왔습니다."),

@@ -54,8 +54,10 @@ public class PostController {
         return ApiResponse.of(SuccessStatus.POST_DELETE_OK, null);
     }
 
-    /*@GetMapping("/api/post/all")
+    @GetMapping("/api/post/all")
     @Operation
-    public ApiResponse<PostResponseDTO> getAllPosts(){}
-*/
+    public ApiResponse<PostResponseDTO.getPostResponseDTO> getAllPosts() {
+        PostResponseDTO.getPostResponseDTO response = postService.getPost();
+        return ApiResponse.of(SuccessStatus.INQUERY_POST_OK,response);
+    }
 }
