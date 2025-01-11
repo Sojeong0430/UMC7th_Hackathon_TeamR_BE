@@ -33,5 +33,4 @@ public class PostServiceImpl implements PostService {
         Post post = postRepository.findById(id).orElseThrow(() ->new PostHandler(ErrorStatus.POST_NOT_FOUND));
         postRepository.delete(post);
     } // 게시글 삭제
-
 }

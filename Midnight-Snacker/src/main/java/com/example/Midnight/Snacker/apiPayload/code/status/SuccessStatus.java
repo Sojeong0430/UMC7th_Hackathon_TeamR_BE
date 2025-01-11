@@ -20,6 +20,10 @@ public enum SuccessStatus implements BaseCode {
     //Post
     POST_DELETE_OK(HttpStatus.OK, "POST2001", "게시글이 성공적으로 삭제되었습니다."),
 
+    //Comment
+    COMMENT_POST_OK(HttpStatus.OK, "COMMENT2001", "댓글이 성공적으로 달렸습니다."),
+    COMMENT_DELETE_OK(HttpStatus.OK, "COMMENT2002", "댓글이 성공적으로 삭제되었습니다."),
+
     //캘린더
     ADD_CALENDAR_OK(HttpStatus.OK, "COMMON200", "달력에 기록이 되었습니다."),
     INQUERY_MONTH_CALENDAR_OK(HttpStatus.OK, "COMMON200", "달력을 불러왔습니다."),
@@ -28,11 +32,12 @@ public enum SuccessStatus implements BaseCode {
     INQUERY_DATE_CALENDAR_OK(HttpStatus.OK,"COMMON200", "기록을 불러왔습니다."),
     DELETE_RECORD_OK(HttpStatus.OK, "COMMON200", "기록이 성공적으로 삭제되었습니다."),
 
+
     //추천
     RECOMMEND_OK(HttpStatus.OK, "COMMON200", "추천이 완료되었습니다."),
 
-    ;
 
+    ;
 
     private final HttpStatus httpStatus;
     private final String code;
