@@ -2,19 +2,17 @@ package com.example.Midnight.Snacker.service.CalendarService;
 
 import com.example.Midnight.Snacker.apiPayload.code.status.ErrorStatus;
 import com.example.Midnight.Snacker.apiPayload.exception.CustomException;
-import com.example.Midnight.Snacker.converter.CalendarConverter;
+import com.example.Midnight.Snacker.converter.CalenderConverter;
 import com.example.Midnight.Snacker.domain.Calendar;
 import com.example.Midnight.Snacker.domain.Member;
-import com.example.Midnight.Snacker.domain.enums.Category;
+import com.example.Midnight.Snacker.domain.enums.CategoryE;
 import com.example.Midnight.Snacker.domain.enums.Color;
 import com.example.Midnight.Snacker.repository.CalendarRepository;
 import com.example.Midnight.Snacker.repository.MemberRepository;
 import com.example.Midnight.Snacker.service.S3Service.S3ImageService;
 import com.example.Midnight.Snacker.web.dto.CalendarDTO.CalendarInfoDTO;
 import com.example.Midnight.Snacker.web.dto.CalendarDTO.CalendarResponseDTO;
-import com.example.Midnight.Snacker.web.dto.CalendarDTO.RegisterRequestDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,19 +26,19 @@ import java.util.List;
 public class CalendarServiceImpl implements CalendarService {
     private final CalendarRepository calendarRepository;
     private final S3ImageService s3ImageService;
-    private final CalendarConverter calendarConverter;
+    private final CalenderConverter calenderConverter;
     private final MemberRepository memberRepository;
 
     //야식 기록 추가 method
     @Override
     @Transactional
-    public Long addRecord(Member member, Category category, Color color, MultipartFile image, LocalDateTime date, String detailFood){
+    public Long addRecord(Member member, CategoryE categoryE, Color color, MultipartFile image, LocalDateTime date, String detailFood){
         //upload file 하기
         String imageUrl = s3ImageService.upload(image);
        //Calendar 엔티티 생성
 
         //Calendar calendar = calendarConverter.toCalendar(member,request, imageUrl, category, color);
-        Calendar calendar = calendarConverter.toCalendar(member, date, detailFood, imageUrl, category, color);
+        Calendar calendar = calenderConverter.toCalendar(member, date, detailFood, imageUrl, categoryE, color);
 
         Calendar savedCalendar = calendarRepository.save(calendar);
 
@@ -72,7 +70,7 @@ public class CalendarServiceImpl implements CalendarService {
         return calendars.stream()
                 .map(calendar -> new CalendarInfoDTO(
                         calendar.getId(),
-                        calendar.getCategory(),
+                        calendar.getCategoryE(),
                         calendar.getColor(),
                         calendar.getDetailFood(),
                         calendar.getImageUrl()

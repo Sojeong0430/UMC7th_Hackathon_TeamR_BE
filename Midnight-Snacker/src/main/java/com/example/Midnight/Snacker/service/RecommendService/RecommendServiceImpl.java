@@ -1,6 +1,6 @@
 package com.example.Midnight.Snacker.service.RecommendService;
 
-import com.example.Midnight.Snacker.domain.enums.Category;
+import com.example.Midnight.Snacker.domain.enums.CategoryE;
 import com.example.Midnight.Snacker.domain.enums.Color;
 import com.example.Midnight.Snacker.web.dto.recommendDTO.RecommendResponseDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -104,7 +104,7 @@ public class RecommendServiceImpl implements RecommendService{
                 RecommendResponseDTO.RecommendationDTO dto = RecommendResponseDTO.RecommendationDTO.builder()
                         .type(convertToColor(type))
                         .menu(menu)
-                        .category(Category.valueOf(category))
+                        .categoryE(CategoryE.valueOf(category))
                         .description(descriptions)
                         .build();
 
