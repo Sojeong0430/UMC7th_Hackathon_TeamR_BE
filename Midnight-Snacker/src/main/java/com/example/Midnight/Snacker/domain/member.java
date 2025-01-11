@@ -18,7 +18,7 @@ import java.util.List;
 @DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class member extends BaseEntity {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,21 +36,31 @@ public class member extends BaseEntity {
 
     private LocalDate inactiveDate; //비활성 일 수
 
-    @Column(nullable = false, columnDefinition = "INT DEFAULT 0")
-    private Integer blackCount; //블랙 카운트
+    @Column(nullable = false)
+    private int blackCount = 0; // 블랙 카운트
 
-    @Column(nullable = false, columnDefinition = "INT DEFAULT 0")
-    private Integer whiteCount; //화이트 카운트
+    @Column(nullable = false)
+    private int whiteCount = 0; // 화이트 카운트
 
-    @Column(nullable = false, columnDefinition = "INT DEFAULT 0")
-    private Integer totalCount; // 전체 합계
+    @Column(nullable = false)
+    private int totalCount = 0;
+
+    public void setTotalCount() {
+        totalCount = blackCount + whiteCount;
+    }
 
     private String accessToken; //액세스 토큰
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<calender> memberCalenderList = new ArrayList<>();
+    private String refreshToken; //리프레시 토큰
+    public void updateToken(String accessToken, String refreshToken) {
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
+    }
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<categoryCount> membercategoryCountList = new ArrayList<>();
+    private List<Calendar> memberCalenderList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<CategoryCount> membercategoryCountList = new ArrayList<>();
 
 }
