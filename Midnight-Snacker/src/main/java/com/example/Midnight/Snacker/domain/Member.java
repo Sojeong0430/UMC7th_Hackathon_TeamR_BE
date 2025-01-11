@@ -18,7 +18,7 @@ import java.util.List;
 @DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class member extends BaseEntity {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,9 +48,14 @@ public class member extends BaseEntity {
     private String accessToken; //액세스 토큰
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<calender> memberCalenderList = new ArrayList<>();
+    private List<Calender> memberCalenderList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<categoryCount> membercategoryCountList = new ArrayList<>();
+    private List<CategoryCount> membercategoryCountList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member")
+    private List<Post> posts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<Comment> comments = new ArrayList<>();
 }
