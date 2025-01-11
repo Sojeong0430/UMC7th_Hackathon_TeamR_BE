@@ -1,9 +1,8 @@
 package com.example.Midnight.Snacker.web.dto.PostDTO;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.List;
 
 public class PostResponseDTO {
 
@@ -15,4 +14,11 @@ public class PostResponseDTO {
         long postId;
     }
 
+    @Setter
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class getPostResponseDTO{
+        private List<PostInfoDTO> posts;
+    }
 }
