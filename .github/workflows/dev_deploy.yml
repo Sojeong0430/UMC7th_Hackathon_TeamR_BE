@@ -74,7 +74,7 @@ jobs:
         username: ubuntu
         host: ${{ secrets.EC2_HOST }}
         key: ${{ secrets.EC2_SSH_KEY }}
-        source: "deploy.sh"
+        source: "./deploy.sh"
         target: "/home/ubuntu/cicd"
     - name: Execute deploy script
       uses: appleboy/ssh-action@master
