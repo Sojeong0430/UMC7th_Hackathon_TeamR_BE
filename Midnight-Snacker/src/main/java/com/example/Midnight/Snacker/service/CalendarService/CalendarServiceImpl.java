@@ -34,14 +34,13 @@ public class CalendarServiceImpl implements CalendarService {
     //야식 기록 추가 method
     @Override
     @Transactional
-    public Long addRecord(Member member, Category category, Color color, MultipartFile image, RegisterRequestDTO request){
+    public Long addRecord(Member member, Category category, Color color, MultipartFile image, LocalDateTime date, String detailFood){
         //upload file 하기
         String imageUrl = s3ImageService.upload(image);
        //Calendar 엔티티 생성
 
-        Calendar calendar =
-                calendarConverter.toCalendar(member,request, imageUrl, category, color);
-
+        //Calendar calendar = calendarConverter.toCalendar(member,request, imageUrl, category, color);
+        Calendar calendar = calendarConverter.toCalendar(member, date, detailFood, imageUrl, category, color);
 
         Calendar savedCalendar = calendarRepository.save(calendar);
 

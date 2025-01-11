@@ -32,10 +32,16 @@ public class CalendarController {
             @Parameter(name = "user", hidden = true) @AuthUser Member member,
             @RequestParam(value = "category")Category category,
             @RequestParam(value = "colorType")Color color,
-            @RequestPart("request")RegisterRequestDTO request,
+            @RequestParam(value = "date") LocalDateTime date,
+            @RequestParam(value = "detailFood") String detailFood,
+            //@RequestPart("request")RegisterRequestDTO request,
+            //@RequestPart(value = "date") LocalDateTime date,
+            //@RequestPart(value = "detailFood") String detailFood,
             @RequestPart(value = "image") MultipartFile image){
+        //Long calendarId = calendarService.addRecord(member, category, color, image, request);
+
         Long calendarId = calendarService.addRecord(member, category,
-                color, image, request);
+                color, image, date, detailFood);
 
         return ApiResponse.of(SuccessStatus.ADD_CALENDAR_OK, calendarId);
     }
