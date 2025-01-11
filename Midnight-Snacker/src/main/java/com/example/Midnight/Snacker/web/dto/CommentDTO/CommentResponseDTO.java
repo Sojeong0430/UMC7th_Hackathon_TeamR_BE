@@ -24,7 +24,9 @@ public class CommentResponseDTO {
     @AllArgsConstructor
     public static class CommentInfoDTO{
         private Long commentId;
+        private Long memberId;
         private String nickname;
+        private Float percent;
         private String content;
         private LocalDate date;
     }

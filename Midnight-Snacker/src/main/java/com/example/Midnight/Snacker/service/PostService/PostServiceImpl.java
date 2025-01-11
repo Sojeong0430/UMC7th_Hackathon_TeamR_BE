@@ -4,6 +4,8 @@ import com.example.Midnight.Snacker.apiPayload.exception.handler.PostHandler;
 import com.example.Midnight.Snacker.domain.Comment;
 import com.example.Midnight.Snacker.domain.Member;
 import com.example.Midnight.Snacker.domain.Post;
+import com.example.Midnight.Snacker.domain.enums.Color;
+import com.example.Midnight.Snacker.repository.CalendarRepository;
 import com.example.Midnight.Snacker.repository.CommentRepository;
 import com.example.Midnight.Snacker.repository.MemberRepository;
 import com.example.Midnight.Snacker.repository.PostRepository;
@@ -27,6 +29,7 @@ public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
     private final CommentRepository commentRepository;
+    private final CalendarRepository calendarRepository;
 
     @Override
     public Post AddPost(String title, String body, String imageUrl, LocalDateTime date, Member member) {
@@ -46,7 +49,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void DeletePost(long id) {
-        Post post = postRepository.findById(id).orElseThrow(() ->new PostHandler(ErrorStatus.POST_NOT_FOUND));
+        Post post = postRepository.findById(id)
+                .orElseThrow(() ->new PostHandler(ErrorStatus.POST_NOT_FOUND));
         postRepository.delete(post);
     } // 게시글 삭제
 
@@ -82,10 +86,26 @@ public class PostServiceImpl implements PostService {
         return comments.stream()
                 . map(comment -> new CommentResponseDTO.CommentInfoDTO(
                         comment.getId(),
+                        comment.getMember().getId(),
                         comment.getMember().getNickname(),
+                        getRate(comment.getMember()),
                         comment.getContent(),
                         comment.getDate().toLocalDate()
                 )).toList();
+    }
+
+    float getRate(Member member){
+        LocalDateTime now = LocalDateTime.now();
+
+        LocalDateTime startOfMonth = now.withDayOfMonth(1).withHour(0).withMinute(0).withSecond(0).withNano(0);
+        LocalDateTime endOfMonth = now.withHour(23).withMinute(59).withSecond(59).withNano(999999999);
+
+        int blackCount = calendarRepository.countByMemberAndColorAndDateBetween(member, Color.BLACK, startOfMonth, endOfMonth);
+
+        int totalCount = calendarRepository.countByMemberAndDateBetween(member, startOfMonth, endOfMonth);
+
+        float rating = totalCount == 0 ? 0 : ((float) blackCount / totalCount) * 100;
+        return rating;
     }
 
 
@@ -96,9 +116,16 @@ public class PostServiceImpl implements PostService {
 
         Post post = postRepository.findById(postId).get();
 
+
         return new PostResponseDTO.getIndiPostResponseDTO(
-                post.getMember().getNickname(), post.getTitle(),
-                post.getBody(), post.getImageUrl(), comments);
+                post.getMember().getId(),
+                post.getMember().getNickname(),
+                post.getTitle(),
+                post.getBody(),g
+                post.getDate().toLocalDate(),
+                post.getImageUrl(),
+                comments,
+                getRate(post.getMember()));
     }
 
 }
