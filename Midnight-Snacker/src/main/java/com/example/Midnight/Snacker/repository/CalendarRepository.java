@@ -12,10 +12,11 @@ import java.awt.print.Pageable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 
 public interface CalendarRepository extends JpaRepository<Calendar, Long> {
-    List<Calendar> findAllByDateBetweenOrderByDateAsc(LocalDateTime startDate, LocalDateTime endDate);
+    List<Calendar> findAllByMemberAndDateBetweenOrderByDateAsc(Member member, LocalDateTime startDate, LocalDateTime endDate);
 
     List<Calendar> findAllByMember(Member member);
 
@@ -24,4 +25,8 @@ public interface CalendarRepository extends JpaRepository<Calendar, Long> {
 
     // 특정 멤버와 날짜 범위로 필터링하여 전체 개수 가져오기
     int countByMemberAndDateBetween(Member member, LocalDateTime startDate, LocalDateTime endDate);
+
+    List<Calendar> findByDateBetweenAndMember(LocalDateTime startDate, LocalDateTime endDate, Member member);
+
+    Optional<Calendar> findByDateAndMember(LocalDateTime date, Member member);
 }

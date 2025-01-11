@@ -1,10 +1,12 @@
 package com.example.Midnight.Snacker.service.CalendarService;
 
 import com.example.Midnight.Snacker.apiPayload.code.status.ErrorStatus;
+import com.example.Midnight.Snacker.apiPayload.exception.CalendarException;
 import com.example.Midnight.Snacker.apiPayload.exception.CustomException;
 import com.example.Midnight.Snacker.converter.CalenderConverter;
 import com.example.Midnight.Snacker.domain.Calendar;
 import com.example.Midnight.Snacker.domain.Member;
+import com.example.Midnight.Snacker.domain.Post;
 import com.example.Midnight.Snacker.domain.enums.CategoryE;
 import com.example.Midnight.Snacker.domain.enums.Color;
 import com.example.Midnight.Snacker.repository.CalendarRepository;
@@ -19,7 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -58,43 +62,37 @@ public class CalendarServiceImpl implements CalendarService {
     }
 
     @Override
-    @Transactional
-    public List<CalendarInfoDTO> getCalendarInfo(LocalDate localDate){
-        //LocalDate를 LocalDateTime의 범위로 변환
-        LocalDateTime startDateTime = localDate.atTime(0,0,0);
-        LocalDateTime endDateTime = localDate.atTime(23, 59, 59);
+    public CalendarResponseDTO.CalendarResponseMonthlyListDTO getMonthlyRecords(int year, int month, Member member) {
+        LocalDate startOfMonth = YearMonth.of(year, month).atDay(1);
+        LocalDate endOfMonth = YearMonth.of(year, month).atEndOfMonth();
 
-        //repository로 찾기
-        List<Calendar> calendars = calendarRepository.findAllByDateBetweenOrderByDateAsc(startDateTime, endDateTime);
+        List<Calendar> calendars = calendarRepository.findByDateBetweenAndMember(startOfMonth.atStartOfDay(), endOfMonth.atStartOfDay(), member);
 
-        return calendars.stream()
-                .map(calendar -> new CalendarInfoDTO(
-                        calendar.getId(),
-                        calendar.getCategoryE(),
-                        calendar.getColor(),
-                        calendar.getDetailFood(),
-                        calendar.getImageUrl()
-                )).toList();
+        int blackCount = (int) calendars.stream().filter(calendar -> calendar.getColor() == Color.BLACK).count();
+        int whiteCount = (int) calendars.stream().filter(calendar -> calendar.getColor() == Color.WHITE).count();
+
+        List<CalendarResponseDTO.CalendarResponseMonthlyDTO> calendarInfoDTOS = calendars.stream()
+                .map(calendar -> new CalendarResponseDTO.CalendarResponseMonthlyDTO(calendar.getDate().toLocalDate(), calendar.getColor()))
+                .collect(Collectors.toList());
+
+        return new CalendarResponseDTO.CalendarResponseMonthlyListDTO(blackCount, whiteCount, calendarInfoDTOS);
     }
 
     @Override
-    @Transactional
-    //월일별 기록 조회 method
-    public CalendarResponseDTO getRecord(LocalDate localDate,Member member){
-        List<CalendarInfoDTO> calendarInfos = getCalendarInfo(localDate);
+    public List<CalendarResponseDTO.CalendarResponseDailyDTO> getDailyRecord(LocalDate date, Member member) {
+        LocalDateTime startDateTime = date.atTime(0,0,0);
+        LocalDateTime endDateTime = date.atTime(23, 59, 59);
+        List<CalendarResponseDTO.CalendarResponseDailyDTO> calendars = calendarRepository.findAllByMemberAndDateBetweenOrderByDateAsc(member, startDateTime, endDateTime)
+                .stream().map(calendar -> new CalendarResponseDTO.CalendarResponseDailyDTO(
+                        calendar.getColor(),
+                        calendar.getImageUrl(),
+                        calendar.getDetailFood(),
+                        calendar.getCategoryE(),
+                        calendar.getId()
+                ))
+                .collect(Collectors.toList());
 
-        int blackCount =(int) calendarInfos.stream()
-                .filter(dto ->
-                        "BLACK".equalsIgnoreCase(
-                                String.valueOf(dto.getColor())))
-                .count();
-        int whiteCount = (int) calendarInfos.stream()
-                .filter(dto ->
-                        "WHITE".equalsIgnoreCase(
-                                String.valueOf(dto.getColor())))
-                .count();
-
-        return new CalendarResponseDTO(blackCount, whiteCount, calendarInfos);
+        return calendars;
     }
 
     //기록 삭제 method

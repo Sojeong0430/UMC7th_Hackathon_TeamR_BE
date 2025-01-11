@@ -22,7 +22,7 @@ import java.util.List;
 public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
-    private final MemberRepository memberRepository;
+
     @Override
     public Post AddPost(String title, String body, String imageUrl, LocalDateTime date, Member member) {
         Post newPost = Post.builder()
@@ -37,6 +37,7 @@ public class PostServiceImpl implements PostService {
         Post savedPost = postRepository.save(newPost);
 
         return savedPost;
+
     } //게시글 등록
 
     @Override
