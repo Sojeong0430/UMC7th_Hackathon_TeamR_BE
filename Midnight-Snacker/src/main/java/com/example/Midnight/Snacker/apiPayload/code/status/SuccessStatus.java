@@ -18,8 +18,16 @@ public enum SuccessStatus implements BaseCode {
     MYPAGE_OK(HttpStatus.OK, "AUTH2004", "마이페이지 조회가 완료되었습니다."),
 
     //Post
-    POST_DELETE_OK(HttpStatus.OK, "POST2001", "게시글이 성공적으로 삭제되었습니다.")
+    POST_DELETE_OK(HttpStatus.OK, "POST2001", "게시글이 성공적으로 삭제되었습니다."),
+
+    //캘린더
+    ADD_CALENDAR_OK(HttpStatus.OK, "COMMON200", "달력에 기록이 되었습니다."),
+    INQUERY_MONTH_CALENDAR_OK(HttpStatus.OK, "COMMON200", "달력을 불러왔습니다."),
+    INQUERY_DATE_CALENDAR_OK(HttpStatus.OK,"COMMON200", "기록을 불러왔습니다."),
+    DELETE_RECORD_OK(HttpStatus.OK, "COMMON200", "기록이 성공적으로 삭제되었습니다.")
+
     ;
+
 
     private final HttpStatus httpStatus;
     private final String code;
