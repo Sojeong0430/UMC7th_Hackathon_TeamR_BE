@@ -56,9 +56,12 @@ public class CalendarServiceImpl implements CalendarService {
 
        return savedCalendar.getId();
     }
+
+    @Override
+    @Transactional
     public List<CalendarInfoDTO> getCalendarInfo(LocalDate localDate){
         //LocalDate를 LocalDateTime의 범위로 변환
-        LocalDateTime startDateTime = localDate.atStartOfDay();
+        LocalDateTime startDateTime = localDate.atTime(0,0,0);
         LocalDateTime endDateTime = localDate.atTime(23, 59, 59);
 
         //repository로 찾기
@@ -73,13 +76,25 @@ public class CalendarServiceImpl implements CalendarService {
                         calendar.getImageUrl()
                 )).toList();
     }
+
+    @Override
+    @Transactional
     //월일별 기록 조회 method
-    public CalendarResponseDTO getRecord(LocalDate localDate){
+    public CalendarResponseDTO getRecord(LocalDate localDate,Member member){
         List<CalendarInfoDTO> calendarInfos = getCalendarInfo(localDate);
 
-        int blackCount
+        int blackCount =(int) calendarInfos.stream()
+                .filter(dto ->
+                        "BLACK".equalsIgnoreCase(
+                                String.valueOf(dto.getColor())))
+                .count();
+        int whiteCount = (int) calendarInfos.stream()
+                .filter(dto ->
+                        "WHITE".equalsIgnoreCase(
+                                String.valueOf(dto.getColor())))
+                .count();
 
-        List<CalendarInfoDTO> calendarInfos =
+        return new CalendarResponseDTO(blackCount, whiteCount, calendarInfos);
     }
 
     //기록 삭제 method

@@ -45,8 +45,11 @@ public class CalendarController {
     @GetMapping
     @Operation
     public ApiResponse<CalendarResponseDTO> showCalendar(
+            @Parameter(name = "user", hidden = true) @AuthUser Member member,
             @RequestParam(value = "date") LocalDate date){
 
-        return ApiResponse.of(SuccessStatus.INQUERY_MONTH_CALENDAR_OK,)
+        CalendarResponseDTO response = calendarService.getRecord(date, member);
+
+        return ApiResponse.of(SuccessStatus.INQUERY_MONTH_CALENDAR_OK,response);
     }
 }
