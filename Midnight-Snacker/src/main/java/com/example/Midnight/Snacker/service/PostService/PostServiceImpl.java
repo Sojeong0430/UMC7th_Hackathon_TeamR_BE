@@ -121,7 +121,7 @@ public class PostServiceImpl implements PostService {
                 post.getMember().getId(),
                 post.getMember().getNickname(),
                 post.getTitle(),
-                post.getBody(),g
+                post.getBody(),
                 post.getDate().toLocalDate(),
                 post.getImageUrl(),
                 comments,
