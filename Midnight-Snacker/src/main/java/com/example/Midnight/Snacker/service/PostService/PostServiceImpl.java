@@ -88,6 +88,7 @@ public class PostServiceImpl implements PostService {
                 )).toList();
     }
 
+
     @Override
     @Transactional
     public PostResponseDTO.getIndiPostResponseDTO getPost(Long postId){
