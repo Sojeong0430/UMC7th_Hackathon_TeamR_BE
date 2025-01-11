@@ -16,6 +16,9 @@ public enum SuccessStatus implements BaseCode {
     USER_DELETE_OK(HttpStatus.OK, "AUTH2002", "회원 탈퇴가 완료되었습니다."),
     USER_REFRESH_OK(HttpStatus.OK, "AUTH2003", "토큰 재발급이 완료되었습니다."),
     MYPAGE_OK(HttpStatus.OK, "AUTH2004", "마이페이지 조회가 완료되었습니다."),
+
+    //Post
+    POST_DELETE_OK(HttpStatus.OK, "POST2001", "게시글이 성공적으로 삭제되었습니다.")
     ;
 
     private final HttpStatus httpStatus;
