@@ -5,7 +5,10 @@ import com.example.Midnight.Snacker.apiPayload.exception.AuthException;
 import com.example.Midnight.Snacker.converter.AuthConverter;
 import com.example.Midnight.Snacker.converter.MemberConverter;
 import com.example.Midnight.Snacker.domain.Member;
+import com.example.Midnight.Snacker.domain.enums.Color;
+import com.example.Midnight.Snacker.repository.CalendarRepository;
 import com.example.Midnight.Snacker.repository.MemberRepository;
+import com.example.Midnight.Snacker.repository.PostRepository;
 import com.example.Midnight.Snacker.security.provider.JwtTokenProvider;
 import com.example.Midnight.Snacker.security.provider.KakaoAuthProvider;
 import com.example.Midnight.Snacker.web.dto.MemberDTO.AuthResponseDTO;
@@ -17,6 +20,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -27,6 +32,7 @@ public class MemberServiceImpl implements MemberService{
     private final MemberRepository memberRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final KakaoAuthProvider kakaoAuthProvider;
+    private final CalendarRepository calendarRepository;
 
 
     @Override
@@ -97,7 +103,19 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public MemberResponseDTO.MyPageResponse getMyPageInfo(Member member) {
-        return MemberConverter.toMyPageResponse(member);
+
+        LocalDateTime now = LocalDateTime.now();
+
+        LocalDateTime firstDayOfMonth = now.withDayOfMonth(1);
+        LocalDateTime lastDayOfMonth = now;
+
+        int blackCount = calendarRepository.countByMemberAndColorAndDateBetween(member, Color.BLACK, firstDayOfMonth, lastDayOfMonth);
+
+        int totalCount = calendarRepository.countByMemberAndDateBetween(member, firstDayOfMonth, lastDayOfMonth);
+
+        float rating = totalCount == 0 ? 0 : ((float) blackCount / totalCount) * 100;
+
+        return MemberConverter.toMyPageResponse(member, rating);
     }
 
 }
