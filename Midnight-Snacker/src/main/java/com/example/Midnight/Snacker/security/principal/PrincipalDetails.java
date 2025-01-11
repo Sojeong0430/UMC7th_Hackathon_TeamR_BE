@@ -55,4 +55,8 @@ public class PrincipalDetails implements UserDetails {
         return true;
     }
 
+    public Long getId() {
+        return member.getId();
+    }
+
 }

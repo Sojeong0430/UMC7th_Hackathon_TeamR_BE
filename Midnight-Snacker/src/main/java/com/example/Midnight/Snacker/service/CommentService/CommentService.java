@@ -4,6 +4,6 @@ import com.example.Midnight.Snacker.domain.Comment;
 import com.example.Midnight.Snacker.domain.Member;
 
 public interface CommentService {
-    Comment addComment(Member member,long postId, String content);
-    void deleteComment(long commentId);
+    Comment addComment(Member member, long postId, String content);
+    void deleteComment(long id);
 }

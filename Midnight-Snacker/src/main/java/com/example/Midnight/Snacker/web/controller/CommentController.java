@@ -33,8 +33,8 @@ public class CommentController {
     }
 
     @Operation(summary = "댓글 삭제 API", description = "댓글을 삭제합니다")
-    @DeleteMapping("/api/post/{commentId}")
-    public ApiResponse<Void>  deleteComment(@PathVariable("commentId") long commentId) {
+    @DeleteMapping("/api/post/comment/{commentId}")
+    public ApiResponse<Void> deleteComment(@PathVariable("commentId") long commentId) {
         commentService.deleteComment(commentId);
         return ApiResponse.of(SuccessStatus.COMMENT_DELETE_OK, null);
     }

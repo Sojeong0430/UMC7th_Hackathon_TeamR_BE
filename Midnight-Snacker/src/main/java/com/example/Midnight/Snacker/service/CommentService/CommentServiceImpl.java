@@ -10,6 +10,7 @@ import com.example.Midnight.Snacker.repository.CommentRepository;
 import com.example.Midnight.Snacker.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +32,7 @@ public class CommentServiceImpl implements CommentService {
     } //댓글 달기
 
     @Override
+    @Transactional
     public void deleteComment(long id) {
         Comment comment = commentRepository.findById(id).orElseThrow(() ->new CommentHandler(ErrorStatus.COMMENT_NOT_FOUND));
         commentRepository.delete(comment);
