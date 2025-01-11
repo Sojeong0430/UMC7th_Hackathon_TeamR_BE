@@ -38,11 +38,7 @@ public class CalendarServiceImpl implements CalendarService {
         //upload file 하기
         String imageUrl = s3ImageService.upload(image);
        //Calendar 엔티티 생성
-
-        Calendar calendar =
-                calendarConverter.toCalendar(member,date, detailFood, imageUrl, category, color);
-
-
+        Calendar calendar = calendarConverter.toCalendar(member, date, detailFood, imageUrl, category, color);
         Calendar savedCalendar = calendarRepository.save(calendar);
 
         //member count 반영하기

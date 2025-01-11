@@ -35,6 +35,8 @@ public class CalendarController {
             @RequestParam(value = "date")LocalDateTime date,
             @RequestParam(value = "detailFood") String detailFood,
             @RequestPart(value = "image") MultipartFile image){
+        //Long calendarId = calendarService.addRecord(member, category, color, image, request);
+
         Long calendarId = calendarService.addRecord(member, category,
                 color, image, date, detailFood);
 
