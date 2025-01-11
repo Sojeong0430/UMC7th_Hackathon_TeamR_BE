@@ -3,6 +3,7 @@ package com.example.Midnight.Snacker.service.PostService;
 import com.example.Midnight.Snacker.apiPayload.exception.handler.PostHandler;
 import com.example.Midnight.Snacker.domain.Member;
 import com.example.Midnight.Snacker.domain.Post;
+import com.example.Midnight.Snacker.repository.CommentRepository;
 import com.example.Midnight.Snacker.repository.MemberRepository;
 import com.example.Midnight.Snacker.repository.PostRepository;
 import com.example.Midnight.Snacker.apiPayload.code.status.ErrorStatus;
@@ -23,6 +24,8 @@ public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
+    private final CommentRepository commentRepository;
+
     @Override
     public Post AddPost(String title, String body, String imageUrl, LocalDateTime date, Member member) {
         Post newPost = Post.builder()
@@ -45,10 +48,10 @@ public class PostServiceImpl implements PostService {
         postRepository.delete(post);
     } // 게시글 삭제
 
-    /*@Override
+    @Override
     @Transactional
     public List<PostInfoDTO> getPostInfo(){
-        List<Post> posts = postRepository.findAll();
+        List<Post> posts = postRepository.findAllByOrderByDateDesc();
 
         return posts.stream()
                 . map(post -> new PostInfoDTO(
@@ -57,14 +60,15 @@ public class PostServiceImpl implements PostService {
                         post.getBody(),
                         post.getDate().toLocalDate(),
                         post.getImageUrl(),
-                        post.
+                        post.getComments().size()
                 )).toList();
     }
 
-
     @Override
     @Transactional
-    public PostResponseDTO.getPostResponseDTO getPost(Member member){
+    public PostResponseDTO.getPostResponseDTO getPost(){
+        List<PostInfoDTO> posts = getPostInfo();
 
-    }*/
+        return new PostResponseDTO.getPostResponseDTO(posts);
+    }
 }
