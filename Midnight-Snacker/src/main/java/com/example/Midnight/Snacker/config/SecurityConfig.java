@@ -35,7 +35,9 @@ public class SecurityConfig {
             "/refresh",
             "/actuator/prometheus",
             "/ws/**",
-            "/topic/**"
+            "/topic/**",
+            "/api/post/**",
+            "/api/recommend/**"
     };
 
     @Bean
