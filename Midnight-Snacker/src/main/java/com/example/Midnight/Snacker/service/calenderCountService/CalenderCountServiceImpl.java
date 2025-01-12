@@ -1,7 +1,6 @@
 package com.example.Midnight.Snacker.service.calenderCountService;
 
 import com.example.Midnight.Snacker.domain.Calendar;
-import com.example.Midnight.Snacker.domain.Category;
 import com.example.Midnight.Snacker.domain.Member;
 import com.example.Midnight.Snacker.domain.enums.CategoryE;
 import com.example.Midnight.Snacker.repository.CalendarRepository;
