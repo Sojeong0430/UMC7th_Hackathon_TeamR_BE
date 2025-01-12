@@ -62,9 +62,6 @@ public class Member extends BaseEntity {
     private List<Calendar> memberCalenderList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<CategoryCount> membercategoryCountList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Post> posts = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)

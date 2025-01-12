@@ -1,6 +1,5 @@
 package com.example.Midnight.Snacker.repository;
 
-import com.example.Midnight.Snacker.domain.Category;
 import com.example.Midnight.Snacker.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
